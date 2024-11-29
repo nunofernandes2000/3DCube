@@ -62,7 +62,6 @@ void polygon(int a, int b, int c , int d)
 
 void colorcube(void)
 {
-    /* Função que mapeia os vértices para as faces do cubo */
     /* map vertices to faces */
 
 
@@ -86,11 +85,9 @@ void display(void)
 
     glLoadIdentity();
 
-
-    // Aplica rotações ao cubo em torno dos eixos X, Y e Z
-    glRotatef(theta[0], 1.0, 0.0, 0.0); // Rotação em torno do eixo X
-    glRotatef(theta[1], 0.0, 1.0, 0.0); // Rotação em torno do eixo Y
-    glRotatef(theta[2], 0.0, 0.0, 1.0); // Rotação em torno do eixo Z
+    glRotatef(theta[0], 1.0, 0.0, 0.0);
+    glRotatef(theta[1], 0.0, 1.0, 0.0);
+    glRotatef(theta[2], 0.0, 0.0, 1.0);
 
     colorcube();
 
