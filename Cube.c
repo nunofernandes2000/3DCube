@@ -62,8 +62,9 @@ void polygon(int a, int b, int c , int d)
 
 void colorcube(void)
 {
+    /* Função que mapeia os vértices para as faces do cubo */
+    /* map vertices to faces */
 
-/* map vertices to faces */
 
     polygon(0,3,2,1);
     polygon(2,3,7,6);
