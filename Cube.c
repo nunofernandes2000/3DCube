@@ -102,6 +102,7 @@ void display(void)
     //glutSwapBuffers();
 }
 
+// Função que faz a rotação do cubo
 void spinCube()
 {
 
