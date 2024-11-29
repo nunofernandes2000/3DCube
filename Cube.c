@@ -150,7 +150,7 @@ main(int argc, char **argv)
     glutCreateWindow("colorcube");
     glutReshapeFunc(myReshape);
     glutDisplayFunc(display);
-    glutIdleFunc(spinCube);
+    glutIdleFunc(spinCube); //callback quando não estou fazer nada faz neste caso a rotação
     glutMouseFunc(mouse);
     glEnable(GL_DEPTH_TEST); /* Enable hidden--surface--removal */
     glutMainLoop();
