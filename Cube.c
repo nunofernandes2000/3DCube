@@ -28,6 +28,8 @@ GLfloat colors[][3] = {{0.0,0.0,0.0},{1.0,0.0,0.0},
                        {1.0,1.0,0.0}, {0.0,1.0,0.0}, {0.0,0.0,1.0},
                        {1.0,0.0,1.0}, {1.0,1.0,1.0}, {0.0,1.0,1.0}};
 
+// Variável de escala global
+static GLfloat scale = 1.0;
 
 void tempo()
 {
@@ -44,16 +46,16 @@ void polygon(int a, int b, int c , int d)
 /* draw a polygon via list of vertices */
 
     glBegin(GL_POLYGON);
-    glColor3fv(colors[a]);
+    //glColor3fv(colors[a]);
     glNormal3fv(normals[a]);
     glVertex3fv(vertices[a]);
-    glColor3fv(colors[b]);
+    //glColor3fv(colors[b]);
     glNormal3fv(normals[b]);
     glVertex3fv(vertices[b]);
-    glColor3fv(colors[c]);
+    //glColor3fv(colors[c]);
     glNormal3fv(normals[c]);
     glVertex3fv(vertices[c]);
-    glColor3fv(colors[d]);
+    //glColor3fv(colors[d]);
     glNormal3fv(normals[d]);
     glVertex3fv(vertices[d]);
     glEnd();
@@ -65,13 +67,18 @@ void colorcube(void)
     /* Função que mapeia os vértices para as faces do cubo */
     /* map vertices to faces */
 
-
-    polygon(0,3,2,1);
-    polygon(2,3,7,6);
-    polygon(0,4,7,3);
-    polygon(1,2,6,5);
-    polygon(4,5,6,7);
-    polygon(0,1,5,4);
+    glColor3fv(colors[0]);
+    polygon(0, 3, 2, 1);
+    glColor3fv(colors[1]);
+    polygon(2, 3, 7, 6);
+    glColor3fv(colors[2]);
+    polygon(0, 4, 7, 3);
+    glColor3fv(colors[3]);
+    polygon(1, 2, 6, 5);
+    glColor3fv(colors[4]);
+    polygon(4, 5, 6, 7);
+    glColor3fv(colors[5]);
+    polygon(0, 1, 5, 4);
 }
 
 static GLfloat theta[] = {0.0,0.0,0.0};
@@ -87,6 +94,9 @@ void display(void)
     glLoadIdentity();
 
 
+    // Aplica a escala ao cubo
+    glScalef(scale, scale, scale);
+
     // Aplica rotações ao cubo em torno dos eixos X, Y e Z
     glRotatef(theta[0], 1.0, 0.0, 0.0); // Rotação em torno do eixo X
     glRotatef(theta[1], 0.0, 1.0, 0.0); // Rotação em torno do eixo Y
@@ -100,6 +110,37 @@ void display(void)
     tempo();
 
     //glutSwapBuffers();
+}
+
+
+
+void keyboard(int key, int x, int y)
+{
+    switch (key) {
+        case GLUT_KEY_LEFT: //seta para a esquerda
+            theta[1] -= 5.0;
+        if (theta[1] < 0.0) theta[1] += 360.0;
+        break;
+        case GLUT_KEY_RIGHT: //seta para a direita
+            theta[1] += 5.0;
+        if (theta[1] > 360.0) theta[1] -= 360.0;
+        break;
+        case GLUT_KEY_UP: //seta para cima
+            theta[0] -= 5.0;
+        if (theta[0] < 0.0) theta[0] += 360.0;
+        break;
+        case GLUT_KEY_DOWN: //seta para baixo
+            theta[0] += 5.0;
+        if (theta[0] > 360.0) theta[0] -= 360.0;
+        break;
+        case '+': // tecla +
+            scale += 0.1;
+        break;
+        case '-': // tecla -
+            if (scale > 0.1) scale -= 0.1;
+        break;
+    }
+    glutPostRedisplay();
 }
 
 // Função que faz a rotação do cubo
@@ -151,8 +192,9 @@ main(int argc, char **argv)
     glutCreateWindow("colorcube");
     glutReshapeFunc(myReshape);
     glutDisplayFunc(display);
-    glutIdleFunc(spinCube); //callback quando não estou fazer nada faz neste caso a rotação
+    //glutIdleFunc(spinCube); //callback quando não estou fazer nada faz neste caso a rotação
     glutMouseFunc(mouse);
+    glutSpecialFunc(keyboard); // Registra a função de callback do teclado
     glEnable(GL_DEPTH_TEST); /* Enable hidden--surface--removal */
     glutMainLoop();
 }
