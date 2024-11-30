@@ -148,6 +148,36 @@ void keyboard(int key, int x, int y)
     glutPostRedisplay();
 }
 
+
+void keyboard2(unsigned char key, int x, int y)
+{
+    switch (key) {
+        case 'a': // tecla A
+            theta[1] -= 5.0;
+        if (theta[1] < 0.0) theta[1] += 360.0;
+        break;
+        case 'd': // tecla D
+            theta[1] += 5.0;
+        if (theta[1] > 360.0) theta[1] -= 360.0;
+        break;
+        case 'w': // tecla W
+            theta[0] -= 5.0;
+        if (theta[0] < 0.0) theta[0] += 360.0;
+        break;
+        case 's': // tecla S
+            theta[0] += 5.0;
+        if (theta[0] > 360.0) theta[0] -= 360.0;
+        break;
+        case '+': // tecla +
+            scale += 0.1;
+        break;
+        case '-': // tecla -
+            if (scale > 0.1) scale -= 0.1;
+        break;
+    }
+    glutPostRedisplay();
+}
+
 // Função que faz a rotação do cubo
 void spinCube()
 {
@@ -201,6 +231,7 @@ main(int argc, char **argv)
     //glutIdleFunc(spinCube); //callback quando não estou fazer nada faz neste caso a rotação
     glutMouseFunc(mouse);
     glutSpecialFunc(keyboard); // Registra a função de callback do teclado
+    glutKeyboardFunc(keyboard2); // Registra a função de callback do teclado(teclado usado no Paint)
     glEnable(GL_DEPTH_TEST); /* Enable hidden--surface--removal */
     glutMainLoop();
 }
