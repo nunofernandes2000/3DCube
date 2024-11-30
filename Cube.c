@@ -31,6 +31,11 @@ GLfloat colors[][3] = {{0.0,0.0,0.0},{1.0,0.0,0.0},
 // Variável de escala global
 static GLfloat scale = 1.0;
 
+
+
+
+
+
 void tempo()
 {
     int i;
@@ -154,6 +159,7 @@ void spinCube()
     /* display(); */
     glutPostRedisplay();
 }
+
 
 void mouse(int btn, int state, int x, int y)
 {
