@@ -30,10 +30,6 @@ GLfloat colors[][3] = {{0.0,0.0,0.0},{1.0,0.0,0.0},
 
 
 
-// Variável de escala global
-static GLfloat scale = 1.0;
-
-
 
 void tempo()
 {
@@ -88,6 +84,14 @@ void colorcube(void)
 static GLfloat theta[] = {0.0,0.0,0.0};
 static GLint axis = 2;
 
+float scale = 1.0;
+float xCubo = 0.0;
+float yCubo = 0.0;
+
+
+
+
+
 void display(void)
 {
 /* display callback, clear frame buffer and z buffer,
@@ -95,16 +99,21 @@ void display(void)
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+
     glLoadIdentity();
 
 
-    // Aplica a escala ao cubo
-    glScalef(scale, scale, scale);
+    glTranslatef(xCubo, yCubo, 0.0);
 
     // Aplica rotações ao cubo em torno dos eixos X, Y e Z
     glRotatef(theta[0], 1.0, 0.0, 0.0); // Rotação em torno do eixo X
     glRotatef(theta[1], 0.0, 1.0, 0.0); // Rotação em torno do eixo Y
     glRotatef(theta[2], 0.0, 0.0, 1.0); // Rotação em torno do eixo Z
+
+
+    // Aplica a escala ao cubo
+    glScalef(scale, scale, scale);
+
 
     colorcube();
 
@@ -145,31 +154,17 @@ void keyboard(int key, int x, int y)
 void keyboard2(unsigned char key, int x, int y)
 {
     switch (key) {
-        case 'a': // tecla A
-            theta[1] -= 5.0;
-        if (theta[1] < 0.0) theta[1] += 360.0;
-        break;
-        case 'd': // tecla D
-            theta[1] += 5.0;
-        if (theta[1] > 360.0) theta[1] -= 360.0;
-        break;
-        case 'w': // tecla W
-            theta[0] -= 5.0;
-        if (theta[0] < 0.0) theta[0] += 360.0;
-        break;
-        case 's': // tecla S
-            theta[0] += 5.0;
-        if (theta[0] > 360.0) theta[0] -= 360.0;
-        break;
-        case '+': // tecla +
-            scale += 0.1;
-        break;
-        case '-': // tecla -
-            if (scale > 0.1) scale -= 0.1;
-        break;
+        case '+': scale += 0.1; glutPostRedisplay(); break;
+        case '-': scale -= 0.1; glutPostRedisplay(); break;
+        case 'W':
+        case 'w': yCubo += 0.1; glutPostRedisplay(); break;
+        case 's': yCubo -= 0.1; glutPostRedisplay(); break;
+        case 'a': xCubo -= 0.1; glutPostRedisplay(); break;
+        case 'd': xCubo += 0.1; glutPostRedisplay(); break;
     }
-    glutPostRedisplay();
 }
+
+
 
 // Função que faz a rotação do cubo
 void spinCube()
