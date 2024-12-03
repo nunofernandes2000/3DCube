@@ -28,11 +28,10 @@ GLfloat colors[][3] = {{0.0,0.0,0.0},{1.0,0.0,0.0},
                        {1.0,1.0,0.0}, {0.0,1.0,0.0}, {0.0,0.0,1.0},
                        {1.0,0.0,1.0}, {1.0,1.0,1.0}, {0.0,1.0,1.0}};
 
+
+
 // Variável de escala global
 static GLfloat scale = 1.0;
-
-
-
 
 
 
@@ -123,26 +122,20 @@ void keyboard(int key, int x, int y)
 {
     switch (key) {
         case GLUT_KEY_LEFT: //seta para a esquerda
-            theta[1] -= 5.0;
+            theta[1] -= 2.0;
         if (theta[1] < 0.0) theta[1] += 360.0;
         break;
         case GLUT_KEY_RIGHT: //seta para a direita
-            theta[1] += 5.0;
+            theta[1] += 2.0;
         if (theta[1] > 360.0) theta[1] -= 360.0;
         break;
         case GLUT_KEY_UP: //seta para cima
-            theta[0] -= 5.0;
+            theta[0] -= 2.0;
         if (theta[0] < 0.0) theta[0] += 360.0;
         break;
         case GLUT_KEY_DOWN: //seta para baixo
-            theta[0] += 5.0;
+            theta[0] += 2.0;
         if (theta[0] > 360.0) theta[0] -= 360.0;
-        break;
-        case '+': // tecla +
-            scale += 0.1;
-        break;
-        case '-': // tecla -
-            if (scale > 0.1) scale -= 0.1;
         break;
     }
     glutPostRedisplay();
