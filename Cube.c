@@ -90,6 +90,16 @@ float yCubo = 0.0;
 
 
 
+// Função que desenha 3 cubos
+void desenha3Cubos()
+{
+    colorcube();
+    glTranslatef(2.5,0.0,0.0);
+    colorcube();
+    glTranslatef(-5.0,0.0,0.0);
+    colorcube();
+}
+
 
 
 void display(void)
@@ -115,7 +125,13 @@ void display(void)
     glScalef(scale, scale, scale);
 
 
-    colorcube();
+
+    // Desenha um cubo
+    //colorcube();
+
+
+    // Desenha 3 cubos
+    desenha3Cubos();
 
 
     glFlush();
@@ -149,6 +165,7 @@ void keyboard(int key, int x, int y)
     }
     glutPostRedisplay();
 }
+
 
 
 void keyboard2(unsigned char key, int x, int y)
