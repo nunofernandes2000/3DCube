@@ -29,6 +29,14 @@ GLfloat colors[][3] = {{0.0,0.0,0.0},{1.0,0.0,0.0},
                        {1.0,0.0,1.0}, {1.0,1.0,1.0}, {0.0,1.0,1.0}};
 
 
+//Variaveis globais
+static GLfloat theta[] = {0.0,0.0,0.0};
+static GLint axis = 2;
+
+float scale = 1.0;
+float xCubo = 0.0;
+float yCubo = 0.0;
+
 
 
 void tempo()
@@ -83,12 +91,6 @@ void colorcube(void)
     polygon(0, 1, 5, 4);
 }
 
-static GLfloat theta[] = {0.0,0.0,0.0};
-static GLint axis = 2;
-
-float scale = 1.0;
-float xCubo = 0.0;
-float yCubo = 0.0;
 
 
 
@@ -138,35 +140,59 @@ void display(void)
 
     glFlush();
 
-    tempo();
+    //tempo();
 
     //glutSwapBuffers();
 }
 
-
-
-void keyboard(int key, int x, int y)
+void spinCube()
 {
-    switch (key) {
-        case GLUT_KEY_LEFT: //seta para a esquerda
-            theta[1] -= 2.0;
-        if (theta[1] < 0.0) theta[1] += 360.0;
-        break;
-        case GLUT_KEY_RIGHT: //seta para a direita
-            theta[1] += 2.0;
-        if (theta[1] > 360.0) theta[1] -= 360.0;
-        break;
-        case GLUT_KEY_UP: //seta para cima
-            theta[0] -= 2.0;
-        if (theta[0] < 0.0) theta[0] += 360.0;
-        break;
-        case GLUT_KEY_DOWN: //seta para baixo
-            theta[0] += 2.0;
-        if (theta[0] > 360.0) theta[0] -= 360.0;
-        break;
-    }
-    glutPostRedisplay();
+
+	/* Idle callback, spin cube 2 degrees about selected axis */
+
+	theta[axis] += 2.0;
+	if (theta[axis] > 360.0) theta[axis] -= 360.0;
+	/* display(); */
+	glutPostRedisplay();
 }
+
+void mouse(int btn, int state, int x, int y)
+{
+
+	/* mouse callback, selects an axis about which to rotate */
+
+	if (btn == GLUT_LEFT_BUTTON && state == GLUT_DOWN) axis = 0;
+	if (btn == GLUT_MIDDLE_BUTTON && state == GLUT_DOWN) axis = 1;
+	if (btn == GLUT_RIGHT_BUTTON && state == GLUT_DOWN) axis = 2;
+}
+
+void keyboard(int key, int x, int y) {
+	int i;
+
+	if (key == GLUT_KEY_UP) {
+		theta[0] -= 2.0;
+		glutPostRedisplay();
+	}
+	if (key == GLUT_KEY_DOWN) {
+		theta[0] += 2.0;
+		glutPostRedisplay();
+	}
+
+	if (key == GLUT_KEY_LEFT) {
+		theta[1] -= 2.0;
+		glutPostRedisplay();
+	}
+	if (key == GLUT_KEY_RIGHT) {
+		theta[1] += 2.0;
+		glutPostRedisplay();
+	}
+
+	for (i = 0; i < 3; i++) {
+		if (theta[i] > 360.0) theta[i] -= 360.0;
+		if (theta[i] < -360.0) theta[i] += 360.0;
+	}
+}
+
 
 
 
@@ -185,28 +211,7 @@ void keyboard2(unsigned char key, int x, int y)
 
 
 
-// Função que faz a rotação do cubo
-void spinCube()
-{
 
-/* Idle callback, spin cube 2 degrees about selected axis */
-
-    theta[axis] += 2.0;
-    if( theta[axis] > 360.0 ) theta[axis] -= 360.0;
-    /* display(); */
-    glutPostRedisplay();
-}
-
-
-void mouse(int btn, int state, int x, int y)
-{
-
-/* mouse callback, selects an axis about which to rotate */
-
-    if(btn==GLUT_LEFT_BUTTON && state == GLUT_DOWN) axis = 0;
-    if(btn==GLUT_MIDDLE_BUTTON && state == GLUT_DOWN) axis = 1;
-    if(btn==GLUT_RIGHT_BUTTON && state == GLUT_DOWN) axis = 2;
-}
 
 void myReshape(int w, int h)
 {
