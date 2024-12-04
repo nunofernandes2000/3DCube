@@ -33,10 +33,12 @@ GLfloat colors[][3] = {{0.0,0.0,0.0},{1.0,0.0,0.0},
 
 void tempo()
 {
-    int i;
-    double max = 2500000.0;
-    for (i=0; i<max; i++)
-        (1/max)*max*max*max/3.14 + (1/max)*max*max*max/3.14 + (1/max)*max*max*max/3.14 + (1/max)*max*max*max/3.14;
+	int i;
+	double max = 10000000.0;
+	for (i = 0; i < max; i++) {
+		(1 / max)* max* max* max / 3.14 + (1 / max) * max * max * max / 3.14 + (1 / max) * max * max * max / 3.14 + (1 / max) * max * max * max / 3.14;
+		(1 / max)* max* max* max / 3.14 + (1 / max) * max * max * max / 3.14 + (1 / max) * max * max * max / 3.14 + (1 / max) * max * max * max / 3.14;
+	}
 
 }
 
