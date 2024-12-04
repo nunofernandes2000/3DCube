@@ -104,6 +104,7 @@ void desenha3Cubos()
     colorcube();
 }
 
+
 // Desenha os eixos X, Y e Z
 void desenhaEixos() {
 	glBegin(GL_LINES);
@@ -126,6 +127,30 @@ void desenhaEixos() {
 	glEnd();
 }
 
+
+//Criar um cubo mágico
+void cuboMagico()
+{
+	int i, j, k;
+
+	glScalef(0.2, 0.2, 0.2);
+
+	glTranslatef(-2.2 * 2, -2.2 * 2, -2.2 * 2);
+
+	for (i = 0; i < 3; i++) {
+		glTranslatef(0.0, 0.0, 2.2);
+		for (j = 0; j < 3; j++) {
+			glTranslatef(0.0, 2.2, 0.0);
+			for (k = 0; k < 3; k++) {
+				glTranslatef(2.2, 0.0, 0.0);
+				colorcube();
+			}
+			glTranslatef(-2.2 * 3, 0.0, 0.0);
+		}
+		glTranslatef(0.0, -2.2 * 3, 0.0);
+	}
+	glTranslatef(0.0, 0.0, -2.2 * 3);
+}
 
 
 void display(void)
@@ -151,16 +176,25 @@ void display(void)
     glScalef(scale, scale, scale);
 
 
+	glPushMatrix(); // Salva a matriz de transformação atual
 
-	// Desenha os eixos
-	desenhaEixos();
 
     // Desenha um cubo
     //colorcube();
 
 
     // Desenha 3 cubos
-    desenha3Cubos();
+   // desenha3Cubos();
+
+
+	cuboMagico(); // Desenha um cubo mágico
+	glPopMatrix(); // Restaura a matriz de transformação
+
+
+	// Desenha os eixos
+	desenhaEixos();
+
+
 
 
     glFlush();
@@ -233,6 +267,8 @@ void keyboard2(unsigned char key, int x, int y)
         case 'd': xCubo += 0.1; glutPostRedisplay(); break;
     }
 }
+
+
 
 
 
