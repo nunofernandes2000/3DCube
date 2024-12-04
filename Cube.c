@@ -104,6 +104,28 @@ void desenha3Cubos()
     colorcube();
 }
 
+// Desenha os eixos X, Y e Z
+void desenhaEixos() {
+	glBegin(GL_LINES);
+
+	// Eixo X em vermelho
+	glColor3f(1.0, 0.0, 0.0);
+	glVertex3f(-2.0, 0.0, 0.0);
+	glVertex3f(2.0, 0.0, 0.0);
+
+	// Eixo Y em verde
+	glColor3f(0.0, 1.0, 0.0);
+	glVertex3f(0.0, -2.0, 0.0);
+	glVertex3f(0.0, 2.0, 0.0);
+
+	// Eixo Z em azul
+	glColor3f(0.0, 0.0, 1.0);
+	glVertex3f(0.0, 0.0, -2.0);
+	glVertex3f(0.0, 0.0, 2.0);
+
+	glEnd();
+}
+
 
 
 void display(void)
@@ -129,6 +151,9 @@ void display(void)
     glScalef(scale, scale, scale);
 
 
+
+	// Desenha os eixos
+	desenhaEixos();
 
     // Desenha um cubo
     //colorcube();
