@@ -128,7 +128,7 @@ void desenhaEixos() {
 }
 
 
-//Criar um cubo mágico
+/*//Criar um cubo mágico -- Versão sem push e pop
 void cuboMagico()
 {
 	int i, j, k;
@@ -150,6 +150,27 @@ void cuboMagico()
 		glTranslatef(0.0, -2.2 * 3, 0.0);
 	}
 	glTranslatef(0.0, 0.0, -2.2 * 3);
+}*/
+
+// Criar um cubo mágico -- Versão com push e pop
+void cuboMagico2() {
+	int i, j, k;
+
+	glPushMatrix();
+
+	glScalef(0.2, 0.2, 0.2);
+
+	glTranslatef(-2.2, -2.2, -2.2);
+
+	for (i = 0; i < 3; i++)
+		for (j = 0; j < 3; j++)
+			for (k = 0; k < 3; k++) {
+				glPushMatrix();
+				glTranslatef(2.2 * i, 2.2 * j, 2.2 * k);
+				colorcube();
+				glPopMatrix();
+			}
+	glPopMatrix();
 }
 
 
@@ -161,7 +182,7 @@ void display(void)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
-    glLoadIdentity();
+    glLoadIdentity(); // Carrega a matriz identidade
 
 
     glTranslatef(xCubo, yCubo, 0.0);
@@ -176,7 +197,6 @@ void display(void)
     glScalef(scale, scale, scale);
 
 
-	glPushMatrix(); // Salva a matriz de transformação atual
 
 
     // Desenha um cubo
@@ -186,14 +206,17 @@ void display(void)
     // Desenha 3 cubos
    // desenha3Cubos();
 
+	//glPushMatrix(); // Salva a matriz de transformação atual
 
-	cuboMagico(); // Desenha um cubo mágico
-	glPopMatrix(); // Restaura a matriz de transformação
+	//cuboMagico(); // Desenha um cubo mágico
+
+	//glPopMatrix(); // Restaura a matriz de transformação salva
+
+	cuboMagico2(); // Desenha um cubo mágico com push e pop
 
 
 	// Desenha os eixos
 	desenhaEixos();
-
 
 
 
