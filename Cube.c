@@ -30,13 +30,17 @@ GLfloat colors[][3] = {{0.0,0.0,0.0},{1.0,0.0,0.0},
 
 
 //Variaveis globais
-static GLfloat theta[] = {0.0,0.0,0.0};
+static GLfloat theta[2][3] = { {0.0,0.0,0.0},{0.0,0.0,0.0} };
 static GLint axis = 2;
 
-float scale = 1.0;
-float xCubo = 0.0;
-float yCubo = 0.0;
+float scale[2] = { 1.0, 1.0 }; //Escala do cubo
 
+//Posição do cubo
+float xCubo[2] = { 0.0,0.0 };
+float yCubo[2] = { 0.0,0.0 };
+
+//Selecionar o cubo
+int selected = 0;
 
 
 void tempo()
@@ -203,17 +207,42 @@ void display(void)
 
     glLoadIdentity(); // Carrega a matriz identidade
 
+	//cubo 1
+	glPushMatrix();
 
-    glTranslatef(xCubo, yCubo, 0.0);
+    glTranslatef(xCubo[0], yCubo[0], 0.0);
 
     // Aplica rotações ao cubo em torno dos eixos X, Y e Z
-    glRotatef(theta[0], 1.0, 0.0, 0.0); // Rotação em torno do eixo X
-    glRotatef(theta[1], 0.0, 1.0, 0.0); // Rotação em torno do eixo Y
-    glRotatef(theta[2], 0.0, 0.0, 1.0); // Rotação em torno do eixo Z
+    glRotatef(theta[0][0], 1.0, 0.0, 0.0); // Rotação em torno do eixo X
+    glRotatef(theta[0][1], 0.0, 1.0, 0.0); // Rotação em torno do eixo Y
+    glRotatef(theta[0][2], 0.0, 0.0, 1.0); // Rotação em torno do eixo Z
 
 
     // Aplica a escala ao cubo
-    glScalef(scale, scale, scale);
+    glScalef(scale[0], scale[0], scale[0]);
+
+	cuboMagico(); // Desenha um cubo mágico
+	glPopMatrix();
+
+
+
+	//cubo 2
+	glPushMatrix();
+
+	glTranslatef(xCubo[1], yCubo[1], 0.0);
+
+	// Aplica rotações ao cubo em torno dos eixos X, Y e Z
+	glRotatef(theta[1][0], 1.0, 0.0, 0.0); // Rotação em torno do eixo X
+	glRotatef(theta[1][1], 0.0, 1.0, 0.0); // Rotação em torno do eixo Y
+	glRotatef(theta[1][2], 0.0, 0.0, 1.0); // Rotação em torno do eixo Z
+
+
+	// Aplica a escala ao cubo
+	glScalef(scale[1], scale[1], scale[1]);
+
+	cuboMagico(); // Desenha um cubo mágico
+	glPopMatrix();
+
 
 
     // Desenha um cubo
@@ -225,7 +254,7 @@ void display(void)
 
 
 	// Desenha 3 cubos modificado
-	desenha3Cubos2();
+	//desenha3Cubos2();
 
 	//glPushMatrix(); // Salva a matriz de transformação atual
 
@@ -253,8 +282,8 @@ void spinCube()
 
 	/* Idle callback, spin cube 2 degrees about selected axis */
 
-	theta[axis] += 2.0;
-	if (theta[axis] > 360.0) theta[axis] -= 360.0;
+	theta[selected][axis] += 2.0;
+	if (theta[selected][axis] > 360.0) theta[selected][axis] -= 360.0;
 	/* display(); */
 	glutPostRedisplay();
 }
@@ -273,26 +302,26 @@ void keyboard(int key, int x, int y) {
 	int i;
 
 	if (key == GLUT_KEY_UP) {
-		theta[0] -= 2.0;
+		theta[selected][0] -= 2.0;
 		glutPostRedisplay();
 	}
 	if (key == GLUT_KEY_DOWN) {
-		theta[0] += 2.0;
+		theta[selected][0] += 2.0;
 		glutPostRedisplay();
 	}
 
 	if (key == GLUT_KEY_LEFT) {
-		theta[1] -= 2.0;
+		theta[selected][1] -= 2.0;
 		glutPostRedisplay();
 	}
 	if (key == GLUT_KEY_RIGHT) {
-		theta[1] += 2.0;
+		theta[selected][1] += 2.0;
 		glutPostRedisplay();
 	}
 
 	for (i = 0; i < 3; i++) {
-		if (theta[i] > 360.0) theta[i] -= 360.0;
-		if (theta[i] < -360.0) theta[i] += 360.0;
+		if (theta[selected][i] > 360.0) theta[selected][i] -= 360.0;
+		if (theta[selected][i] < -360.0) theta[selected][i] += 360.0;
 	}
 }
 
@@ -302,13 +331,15 @@ void keyboard(int key, int x, int y) {
 void keyboard2(unsigned char key, int x, int y)
 {
     switch (key) {
-        case '+': scale += 0.1; glutPostRedisplay(); break;
-        case '-': scale -= 0.1; glutPostRedisplay(); break;
+        case '+': scale[selected] += 0.1; glutPostRedisplay(); break;
+        case '-': scale[selected] -= 0.1; glutPostRedisplay(); break;
         case 'W':
-        case 'w': yCubo += 0.1; glutPostRedisplay(); break;
-        case 's': yCubo -= 0.1; glutPostRedisplay(); break;
-        case 'a': xCubo -= 0.1; glutPostRedisplay(); break;
-        case 'd': xCubo += 0.1; glutPostRedisplay(); break;
+        case 'w': yCubo[selected] += 0.1; glutPostRedisplay(); break;
+        case 's': yCubo[selected] -= 0.1; glutPostRedisplay(); break;
+        case 'a': xCubo[selected] -= 0.1; glutPostRedisplay(); break;
+        case 'd': xCubo[selected] += 0.1; glutPostRedisplay(); break;
+    	case '1': selected = 0; break;
+    	case '2': selected = 1; break;
     }
 }
 
