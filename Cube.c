@@ -17,7 +17,7 @@ are the same as the vertex values */
 #endif
 
 
-
+//TODO:Fazer o ponto 6 e ponto 7 do TODO
 
 GLfloat vertices[][3] = { {-1.0,-1.0,-1.0},{1.0,-1.0,-1.0},
 {1.0,1.0,-1.0}, {-1.0,1.0,-1.0}, {-1.0,-1.0,1.0},
@@ -32,8 +32,7 @@ GLfloat colors[][3] = { {0.0,0.0,0.0},{1.0,0.0,0.0},
 {1.0,0.0,1.0}, {1.0,1.0,1.0}, {0.0,1.0,1.0} };
 
 // VariÃ¡veis Globais
-
-#define TIME 1000 // 1 segundo
+#define TIME 10
 #define NCubos 2
 
 struct cubo {
@@ -41,10 +40,13 @@ struct cubo {
     float escala;
     float xCubo;
     float yCubo;
+    float velocidade;
 };
 
 struct cubo cubos[NCubos];
 int selectedCubo = 0;
+//float v = 0.5; // Velocity (units/second)
+
 
 void init() {
     cubos[0].theta[0] = 0.0;
@@ -53,6 +55,7 @@ void init() {
     cubos[0].escala = 1.0;
     cubos[0].xCubo = -1.5;
     cubos[0].yCubo = 0.0;
+    cubos[0].velocidade = -0.5;
 
     cubos[1].theta[0] = 0.0;
     cubos[1].theta[1] = 0.0;
@@ -60,6 +63,7 @@ void init() {
     cubos[1].escala = 1.0;
     cubos[1].xCubo = 1.5;
     cubos[1].yCubo = 0.0;
+    cubos[1].velocidade = 0.8;
 }
 
 
@@ -284,11 +288,25 @@ void teclado(unsigned char key, int x, int y) {
     }
 }
 
+
+void updateCubo(int i)
+{
+    cubos[i].xCubo += cubos[i].velocidade * (TIME/1000.0);
+    if (cubos[i].xCubo >= 2.0 || cubos[i].xCubo <= -2.0) {
+        cubos[i].velocidade *= -1; // inverte a velocidade
+    }
+}
+
 void update(int value) {
     printf("Some time...\n");
 
+    updateCubo(0);
+    updateCubo(1);
+
+    glutPostRedisplay();
+
     glutTimerFunc(TIME, update, TIME);
-    //glTranslatef();
+
 }
 
 
