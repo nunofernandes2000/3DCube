@@ -51,8 +51,8 @@ build cmake_object_order_depends_target_CubeRotation: phony || .
 
 build CMakeFiles/CubeRotation.dir/Cube.c.o: C_COMPILER__CubeRotation_unscanned_Debug /Users/nunofernandes/Desktop/CubeRotation/Cube.c || cmake_object_order_depends_target_CubeRotation
   DEP_FILE = CMakeFiles/CubeRotation.dir/Cube.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fcolor-diagnostics
-  INCLUDES = -I/opt/homebrew/include -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks -isystem /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks/GLUT.framework/Headers
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk -fcolor-diagnostics
+  INCLUDES = -I/opt/homebrew/include -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/System/Library/Frameworks -isystem /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/GLUT.framework/Headers
   OBJECT_DIR = CMakeFiles/CubeRotation.dir
   OBJECT_FILE_DIR = CMakeFiles/CubeRotation.dir
 
@@ -64,8 +64,8 @@ build CMakeFiles/CubeRotation.dir/Cube.c.o: C_COMPILER__CubeRotation_unscanned_D
 #############################################
 # Link the executable CubeRotation
 
-build CubeRotation: C_EXECUTABLE_LINKER__CubeRotation_Debug CMakeFiles/CubeRotation.dir/Cube.c.o | /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks/OpenGL.framework /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks/GLUT.framework /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/System/Library/Frameworks/Cocoa.framework
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk
+build CubeRotation: C_EXECUTABLE_LINKER__CubeRotation_Debug CMakeFiles/CubeRotation.dir/Cube.c.o | /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/OpenGL.framework /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/GLUT.framework /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/Cocoa.framework
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk
   LINK_LIBRARIES = -framework OpenGL  -framework GLUT  -framework Cocoa
   OBJECT_DIR = CMakeFiles/CubeRotation.dir
   POST_BUILD = :
